@@ -1,0 +1,15 @@
+<DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Flask Websocket Example</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+</head>
+<body>
+   
+    <input id="message" type="text" placeholder="Enter message"
+    <button onclick="sendMessage()">Send</button>
+    <ul id="messages"></ul>
+
+    <script src="{{ url_for ('static', filename='client.js') }}"></script>
+</body>
+</html> 

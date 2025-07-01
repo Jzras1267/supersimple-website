@@ -1,0 +1,170 @@
+import zipfile
+import os
+
+# Define directory structure for the packaged HTML portfolio
+base_dir = "/mnt/data/justin_portfolio_site"
+os.makedirs(base_dir, exist_ok=True)
+
+# Main HTML content with Formspree integration for production-ready contact form
+html_content = """
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Justin Socrates Portfolio</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" />
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script defer src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script defer>
+      document.addEventListener('DOMContentLoaded', () => {
+        AOS.init();
+        document.getElementById('toggle-dark').addEventListener('click', () => {
+          document.documentElement.classList.toggle('dark');
+        });
+      });
+    </script>
+  </head>
+  <body class="bg-white text-gray-900 dark:bg-gray-900 dark:text-white transition-colors duration-300">
+    <header class="bg-gray-100 dark:bg-gray-800 p-4 shadow-md sticky top-0 z-50">
+      <nav class="container mx-auto flex justify-between items-center">
+        <h1 class="text-xl font-bold">Justin Socrates</h1>
+        <div class="space-x-4">
+          <a href="#about" class="hover:text-blue-500">About</a>
+          <a href="#skills" class="hover:text-blue-500">Skills</a>
+          <a href="#portfolio" class="hover:text-blue-500">Portfolio</a>
+          <a href="#blog" class="hover:text-blue-500">Blog</a>
+          <a href="#contact" class="hover:text-blue-500">Contact</a>
+          <button id="toggle-dark" class="ml-2 text-sm bg-gray-300 dark:bg-gray-600 px-2 py-1 rounded">Toggle Dark</button>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <section id="about" class="py-16 px-6 bg-gray-50 dark:bg-gray-900" data-aos="fade-up">
+        <div class="max-w-4xl mx-auto">
+          <h2 class="text-3xl font-bold mb-6">About Me</h2>
+          <p class="text-lg leading-relaxed">
+            Hi! I'm Justin Socrates, a Computer Science student at President University. I’m passionate about creating user-friendly web experiences and smart systems in the field of IoT.
+          </p>
+        </div>
+      </section>
+
+      <section id="skills" class="py-16 px-6 bg-white dark:bg-gray-800" data-aos="fade-up">
+        <div class="max-w-4xl mx-auto">
+          <h2 class="text-3xl font-bold mb-6">Skills</h2>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded shadow">HTML/CSS - Proficient</div>
+            <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded shadow">JavaScript - Intermediate</div>
+            <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded shadow">Vue.js - Beginner</div>
+            <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded shadow">Tailwind CSS - Intermediate</div>
+            <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded shadow">Communication - Excellent</div>
+          </div>
+        </div>
+      </section>
+
+      <section id="portfolio" class="py-16 px-6 bg-gray-50 dark:bg-gray-900" data-aos="fade-up">
+        <div class="max-w-4xl mx-auto">
+          <h2 class="text-3xl font-bold mb-6">Portfolio</h2>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div class="bg-white dark:bg-gray-800 p-6 rounded shadow">ProTech Helmet - IoT smart helmet</div>
+            <div class="bg-white dark:bg-gray-800 p-6 rounded shadow">Sakura Park Hotel Website - Static responsive site</div>
+            <div class="bg-white dark:bg-gray-800 p-6 rounded shadow">SCReMS - Car rental system</div>
+          </div>
+        </div>
+      </section>
+
+      <section id="blog" class="py-16 px-6 bg-white dark:bg-gray-800" data-aos="fade-up">
+        <div class="max-w-4xl mx-auto">
+          <h2 class="text-3xl font-bold mb-6">Blog</h2>
+          <p>Coming soon! This section will include articles, tutorials, and learning journeys.</p>
+        </div>
+      </section>
+
+      <section class="py-16 px-6 bg-gray-50 dark:bg-gray-900" data-aos="fade-up">
+        <div class="max-w-4xl mx-auto">
+          <h2 class="text-3xl font-bold mb-6">Resume</h2>
+          <a href="resume.pdf" download class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded">
+            Download Resume
+          </a>
+        </div>
+      </section>
+
+      <section id="contact" class="py-16 px-6 bg-white dark:bg-gray-800" data-aos="fade-up">
+        <div class="max-w-xl mx-auto">
+          <h2 class="text-3xl font-bold mb-6">Contact</h2>
+          <form action="https://formspree.io/f/mayvlbpb" method="POST" class="space-y-4">
+            <input type="text" name="name" placeholder="Name" required class="w-full p-3 border rounded" />
+            <input type="email" name="email" placeholder="Email" required class="w-full p-3 border rounded" />
+            <textarea name="message" rows="4" placeholder="Message" required class="w-full p-3 border rounded"></textarea>
+            <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded">Send</button>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer class="py-6 text-center bg-gray-200 dark:bg-gray-900">
+      <p>© 2025 Justin Socrates. All rights reserved.</p>
+    </footer>
+  </body>
+</html>
+"""
+
+# Save index.html file
+html_path = os.path.join(base_dir, "index.html")
+with open(html_path, "w") as f:
+    f.write(html_content)
+
+# Create the ZIP file
+zip_path = "/mnt/data/justin_portfolio_website.zip"
+with zipfile.ZipFile(zip_path, 'w') as zipf:
+    zipf.write(html_path, arcname="index.html")
+
+zip_path
+# Update the HTML file to include full Blog content and best project highlight
+
+updated_html_content = html_content.replace(
+    '<section id="blog" class="py-16 px-6 bg-white dark:bg-gray-800" data-aos="fade-up">\n'
+    '        <div class="max-w-4xl mx-auto">\n'
+    '          <h2 class="text-3xl font-bold mb-6">Blog</h2>\n'
+    '          <p>Coming soon! This section will include articles, tutorials, and learning journeys.</p>\n'
+    '        </div>\n'
+    '      </section>',
+    '''
+      <section id="blog" class="py-16 px-6 bg-white dark:bg-gray-800" data-aos="fade-up">
+        <div class="max-w-4xl mx-auto">
+          <h2 class="text-3xl font-bold mb-6">Blog</h2>
+          <div class="space-y-8">
+            <article class="bg-gray-100 dark:bg-gray-700 p-6 rounded shadow">
+              <h3 class="text-xl font-semibold mb-2">My Learning Journey in Web Development</h3>
+              <p class="text-gray-800 dark:text-gray-200">Starting from basic HTML and CSS, I gradually advanced to JavaScript, Tailwind, and Vue.js. This article walks through my learning steps, mistakes, and the resources that helped me most.</p>
+            </article>
+            <article class="bg-gray-100 dark:bg-gray-700 p-6 rounded shadow">
+              <h3 class="text-xl font-semibold mb-2">Tutorial: Building a Contact Form with Formspree</h3>
+              <p class="text-gray-800 dark:text-gray-200">In this tutorial, I explain how I implemented a working contact form using Formspree, making my portfolio ready for real-world messaging without server-side complexity.</p>
+            </article>
+            <article class="bg-gray-100 dark:bg-gray-700 p-6 rounded shadow">
+              <h3 class="text-xl font-semibold mb-2">Best Project: ProTech Helmet – Smart Safety System</h3>
+              <p class="text-gray-800 dark:text-gray-200">ProTech Helmet is a smart IoT safety helmet equipped with sensors for fall and gas detection. It was developed using ESP32, Firebase, and a web-based monitoring interface—my most ambitious and impactful project to date.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+    '''
+)
+
+# Update portfolio section with "Best Project" label
+updated_html_content = updated_html_content.replace(
+    '<div class="bg-white dark:bg-gray-800 p-6 rounded shadow">ProTech Helmet - IoT smart helmet</div>',
+    '<div class="bg-white dark:bg-gray-800 p-6 rounded shadow border-2 border-blue-500"><strong>Best Project:</strong> ProTech Helmet - IoT smart helmet</div>'
+)
+
+# Save the updated HTML content
+with open(html_path, "w") as f:
+    f.write(updated_html_content)
+
+# Repackage the updated HTML file
+with zipfile.ZipFile(zip_path, 'w') as zipf:
+    zipf.write(html_path, arcname="index.html")
+
+zip_path

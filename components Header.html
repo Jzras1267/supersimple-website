@@ -1,0 +1,186 @@
+from pathlib import Path
+from IPython.display import FileLink
+
+# Save the provided HTML content to a file
+html_content = """
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Justin Socrates | Portfolio Website | Developer</title>
+  <meta name="description" content="Justin Socrates is a Computer Science student passionate about web development and IoT.">
+  <meta name="author" content="Justin Socrates">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/vendor.css">
+  <script src="js/modernizr.js"></script>
+  <script src="js/pace.min.js"></script>
+  <link rel="icon" type="image/png" href="favicon.png">
+</head>
+<body id="top">
+  <header>
+    <div class="bar">
+      <a class="menu-toggle" href="#"><span>Menu</span></a>
+      <div class="logo"><a href="index.html">Justin Socrates</a></div>
+      <nav id="main-nav-wrap">
+        <ul class="main-navigation">
+          <li class="current"><a class="smoothscroll" href="#intro" title="">Home</a></li>
+          <li><a class="smoothscroll" href="#about" title="">About</a></li>
+          <li><a class="smoothscroll" href="#portfolio" title="">Portfolio</a></li>
+          <li><a class="smoothscroll" href="#blog" title="">Blog</a></li>
+          <li><a class="smoothscroll" href="#contact" title="">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <section id="intro">
+    <div class="intro-overlay"></div>
+    <div class="intro-content">
+      <div class="row">
+        <div class="col-twelve">
+          <h5>Hello, World.</h5>
+          <h1>I<span style="color: #CC005F;">'</span>m Justin Socrates<span style="color: #CC005F;">.</span></h1>
+          <p class="intro-position">
+            <span>Web Developer</span>
+            <span>IoT Enthusiast</span>
+          </p>
+          <a class="button stroke smoothscroll" href="#about" title="">More About Me</a>
+        </div>
+      </div>
+    </div>
+    <ul class="intro-social">
+      <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+      <li><a href="#"><i class="fa fa-github"></i></a></li>
+    </ul>
+  </section>
+
+  <section id="about">
+    <div class="row section-intro">
+      <div class="col-twelve">
+        <h5>About</h5>
+        <h2>Let me introduce myself.</h2>
+        <div class="intro-info">
+          <img src="images/profile-pic.jpg" alt="Justin Socrates Picture">
+          <p class="lead">Hi! I'm Justin Socrates, a Computer Science student at President University. I’m passionate about creating user-friendly web experiences and smart systems in the field of IoT.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="row about-content">
+      <div class="col-six tab-full">
+        <h3>Skills</h3>
+        <ul class="skill-bars">
+          <li><strong>HTML/CSS - Proficient</strong></li>
+          <li><strong>JavaScript - Intermediate</strong></li>
+          <li><strong>Tailwind CSS - Intermediate</strong></li>
+          <li><strong>Vue.js - Beginner</strong></li>
+          <li><strong>Communication - Excellent</strong></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="portfolio">
+    <div class="row section-intro">
+      <div class="col-twelve">
+        <h5>Portfolio</h5>
+        <h2>Check Out Some of My Projects.</h2>
+        <p class="lead">These Projects have helped me develop my Skills and understand the Industry better.</p>
+      </div>
+    </div>
+    <div class="row portfolio-content">
+      <div class="col-twelve">
+        <ul class="portfolio-list">
+          <li><strong>ProTech Helmet - IoT smart helmet</strong>: A smart safety system for workers featuring gas and fall detection using ESP32 and Firebase.</li>
+          <li><strong>Sakura Park Hotel Website</strong>: A responsive, informative website built for a hotel business with elegant static design.</li>
+          <li><strong>SCReMS</strong>: Smart Car Rental Management System, a full-featured platform for rentals.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="blog">
+    <div class="row section-intro">
+      <div class="col-twelve">
+        <h5>Blog</h5>
+        <h2>Writing, Learning, and Tutorials</h2>
+        <p class="lead">Here are some of my favorite writeups on development and learning.</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-twelve">
+        <article>
+          <h3>My Learning Journey in Web Development</h3>
+          <p>Starting from basic HTML and CSS, I gradually advanced to JavaScript, Tailwind, and Vue.js. This article walks through my learning steps, mistakes, and the resources that helped me most.</p>
+        </article>
+        <article>
+          <h3>Tutorial: Building a Contact Form with Formspree</h3>
+          <p>In this tutorial, I explain how I implemented a working contact form using Formspree, making my portfolio ready for real-world messaging without server-side complexity.</p>
+        </article>
+        <article>
+          <h3>Best Project: ProTech Helmet – Smart Safety System</h3>
+          <p>ProTech Helmet is a smart IoT safety helmet equipped with sensors for fall and gas detection. It was developed using ESP32, Firebase, and a web-based monitoring interface—my most ambitious and impactful project to date.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="row section-intro">
+      <div class="col-twelve">
+        <h5>Contact</h5>
+        <h2>I'd Love To Hear From You.</h2>
+        <p class="lead">Feel free to reach out through the form below.</p>
+      </div>
+    </div>
+    <div class="row contact-form">
+      <div class="col-twelve">
+        <form id="contactForm" method="POST" action="https://formspree.io/f/mayaqvnv">
+          <fieldset>
+            <input name="name" type="text" placeholder="Name" required>
+            <input name="_replyto" type="email" placeholder="Email" required>
+            <input name="_subject" type="text" placeholder="Subject">
+            <textarea name="message" placeholder="Your message" rows="10" required></textarea>
+            <button class="submitform">Submit</button>
+          </fieldset>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="row">
+      <div class="col-six tab-full">
+        <div class="copyright">
+          <span>© Copyright 2025</span>
+          <span>Design by Justin Socrates</span>
+        </div>
+      </div>
+      <div class="col-six tab-full pull-right social">
+        <ul class="footer-social">
+          <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+          <li><a href="#"><i class="fa fa-github"></i></a></li>
+        </ul>
+      </div>
+      <div id="go-top">
+        <a class="smoothscroll" title="Back to Top" href="#top"><i class="fa fa-long-arrow-up"></i></a>
+      </div>
+    </div>
+  </footer>
+
+  <div id="preloader">
+    <div id="loader"></div>
+  </div>
+
+  <script src="js/jquery-2.1.3.min.js"></script>
+  <script src="js/plugins.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
+"""
+
+output_path = Path("/mnt/data/justin-socrates-portfolio.html")
+output_path.write_text(html_content, encoding="utf-8")
+output_path.name
